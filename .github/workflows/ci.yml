@@ -31,7 +31,7 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
 
-      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - uses: gradle/actions/setup-gradle@0f4528296b4bc09e8ae0fc7be30185a4ab435545 # v6.0.0
 
       - run: ./gradlew ktlintFormat --stacktrace
       - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7
@@ -51,6 +51,6 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
 
-      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5
+      - uses: gradle/actions/setup-gradle@0f4528296b4bc09e8ae0fc7be30185a4ab435545 # v6.0.0
 
       - run: ./gradlew build --stacktrace
