@@ -1,7 +1,7 @@
 [versions]
 
 jdkVersion = "17"
-koog = "0.7.3"
+koog = "0.8.0"
 kotlin = "2.3.20"
 kotlinx-coroutines = "1.10.2"
 ktlint = "1.8.0"
