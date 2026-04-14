@@ -3,18 +3,27 @@ package ai.advent
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.embeddings.base.Vector
 import ai.koog.embeddings.local.LLMEmbedder
 import ai.koog.prompt.executor.ollama.client.OllamaClient
 import ai.koog.prompt.executor.ollama.client.OllamaModels
 import ai.koog.rag.base.storage.search.SimilaritySearchRequest
-import ai.koog.rag.vector.embedder.JVMTextDocumentEmbedder
+import ai.koog.rag.vector.embedder.DocumentEmbedder
 import ai.koog.rag.vector.storage.InMemoryDocumentEmbeddingStorage
 
 class DocumentSearchToolSet(
     private val ollamaClient: OllamaClient,
 ) : ToolSet {
     val llmEmbedder = LLMEmbedder(ollamaClient, OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-    val documentEmbedder = JVMTextDocumentEmbedder(llmEmbedder)
+    val documentEmbedder =
+        object : DocumentEmbedder<String> {
+            override suspend fun embed(document: String): Vector = llmEmbedder.embed(document)
+
+            override fun diff(
+                embedding1: Vector,
+                embedding2: Vector,
+            ): Double = llmEmbedder.diff(embedding1, embedding2)
+        }
     val documentStorage = InMemoryDocumentEmbeddingStorage(embedder = documentEmbedder)
 
     @Tool
@@ -56,7 +65,7 @@ class DocumentSearchToolSet(
             )
 
         for (chunk in knowledgeBase) {
-            documentEmbedder.embed(chunk)
+            documentStorage.add(listOf(chunk))
             println("  [+] $chunk")
         }
         println("Knowledge base ready.\n")
