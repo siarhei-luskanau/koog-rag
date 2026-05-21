@@ -16,6 +16,7 @@ java {
 
 dependencies {
     implementation(libs.koog.agents)
+    implementation(libs.koog.rag.vector)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.swing)
     implementation(libs.ktor.client.apache5)
