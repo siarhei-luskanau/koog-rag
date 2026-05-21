@@ -22,6 +22,7 @@ dependencies {
     implementation(libs.ktor.client.apache5)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.slf4j.simple)
+    implementation("net.sf.sociaal:freetts:1.2.2")
     implementation(project.dependencies.platform(libs.ktor.bom))
 }
 

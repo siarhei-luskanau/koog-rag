@@ -9,7 +9,10 @@ import ai.koog.prompt.executor.ollama.client.OllamaClient
 import ai.koog.prompt.llm.LLMCapability
 import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
+import com.sun.speech.freetts.VoiceManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.time.Clock
@@ -21,7 +24,7 @@ fun main() =
         val chatModel =
             LLModel(
                 provider = LLMProvider.Ollama,
-                id = "qwen3.5:9b",
+                id = "qwen3.5:0.8b",
                 capabilities =
                     listOf(
                         LLMCapability.Schema.JSON.Basic,
@@ -68,8 +71,21 @@ fun main() =
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
         val date = today.format(DateTimeFormatter.ofPattern("MMMM d"))
-        val question = "Today is $date. Who has a next birthday and what he/she likes?"
+        val question = "Today is $date. Who has a next birthday and what he/she likes? Переведи ответ на русский язык."
         println("Question: $question\n")
         val response = agent.run(question)
         println("Answer: $response")
+        withContext(Dispatchers.IO) {
+            System.setProperty(
+                "freetts.voices",
+                "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory",
+            )
+            val voice = VoiceManager.getInstance().getVoice("kevin16")
+            voice?.apply {
+                allocate()
+                speak(response)
+                deallocate()
+            }
+        }
+        Unit
     }
