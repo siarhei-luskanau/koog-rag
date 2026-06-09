@@ -2,7 +2,7 @@
 
 jdkVersion = "17"
 koog = "1.0.0"
-koog-beta = "1.0.0-beta-preview7"
+koog-beta = "1.0.0-beta"
 kotlin = "2.4.0"
 kotlinx-coroutines = "1.11.0"
 ktlint = "1.8.0"
