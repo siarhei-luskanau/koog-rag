@@ -4,6 +4,17 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      kotlin-ecosystem:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+      ktor:
+        patterns:
+          - "io.ktor*"
+      koog:
+        patterns:
+          - "ai.koog*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
