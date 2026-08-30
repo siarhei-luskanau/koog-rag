@@ -3,19 +3,16 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "quarterly"
     groups:
-      kotlin-ecosystem:
+      gradle:
         patterns:
-          - "org.jetbrains.kotlin*"
-          - "org.jetbrains.kotlinx*"
-      ktor:
-        patterns:
-          - "io.ktor*"
-      koog:
-        patterns:
-          - "ai.koog*"
+          - "*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "quarterly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

@@ -41,6 +41,7 @@ jobs:
 
 
   Build:
+    needs: Lint
     runs-on: ubuntu-latest
     steps:
 
