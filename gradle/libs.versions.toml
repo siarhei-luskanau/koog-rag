@@ -1,13 +1,13 @@
 [versions]
 
 jdkVersion = "17"
-koog = "1.1.1"
-koog-beta = "1.1.1-beta"
-kotlin = "2.4.10"
+koog = "1.3.0"
+koog-beta = "1.3.0-beta"
+kotlin = "2.4.20"
 kotlinx-coroutines = "1.11.0"
 ktlint = "1.8.0"
-ktor = "3.5.2"
-slf4j = "2.0.18"
+ktor = "3.6.0"
+slf4j = "2.0.20"
 
 [libraries]
 
