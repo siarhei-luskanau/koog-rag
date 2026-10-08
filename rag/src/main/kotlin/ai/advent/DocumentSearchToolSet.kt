@@ -14,7 +14,9 @@ import ai.koog.rag.vector.storage.InMemoryDocumentEmbeddingStorage
 class DocumentSearchToolSet(
     private val ollamaClient: OllamaClient,
 ) : ToolSet {
-    val llmEmbedder = LLMEmbedder(ollamaClient, OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+    val llmModel = OllamaModels.Embeddings.NOMIC_EMBED_TEXT
+    val llmEmbedder = LLMEmbedder(client = ollamaClient, model = llmModel)
+
     val documentEmbedder =
         object : DocumentEmbedder<String> {
             override suspend fun embed(document: String): Vector = llmEmbedder.embed(document)
@@ -48,7 +50,7 @@ class DocumentSearchToolSet(
     }
 
     suspend fun prepareKnowledgeBase() {
-        ollamaClient.getModelOrNull(OllamaModels.Embeddings.NOMIC_EMBED_TEXT.id, pullIfMissing = true)
+        ollamaClient.getModelOrNull(llmModel.id, pullIfMissing = true)
 
         val knowledgeBase =
             listOf(
